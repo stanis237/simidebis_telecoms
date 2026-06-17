@@ -24,12 +24,24 @@ class IsAdminOrManager(permissions.BasePermission):
 
 
 class IsAuthenticatedReadOnly(permissions.BasePermission):
-    """Lecture seule pour les techniciens, CRUD pour admin/manager."""
+    """
+    Lecture pour tous.
+    Création autorisée pour tous (y compris Techniciens).
+    Modification/Suppression réservée aux Admins et Managers.
+    """
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
             return False
+
+        # Tout le monde peut lire (GET, HEAD, OPTIONS)
         if request.method in permissions.SAFE_METHODS:
             return True
+
+        # Tout le monde peut ajouter une antenne (POST)
+        if request.method == 'POST':
+            return True
+
+        # Seuls Admin et Manager peuvent modifier (PUT, PATCH) ou supprimer (DELETE)
         return request.user.role in ('ADMIN', 'MANAGER')
 
 
