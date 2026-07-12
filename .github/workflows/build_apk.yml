@@ -1,0 +1,46 @@
+name: Build Simidebis APK
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    name: Build Flutter APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.2'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: frontend_mobile/symberis_mobile
+
+      - name: Build APK
+        run: flutter build apk --release
+        working-directory: frontend_mobile/symberis_mobile
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: simidebis-release-apk
+          path: frontend_mobile/symberis_mobile/build/app/outputs/flutter-apk/app-release.apk
