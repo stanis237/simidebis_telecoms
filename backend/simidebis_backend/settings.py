@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'symberis_backend.urls'
+ROOT_URLCONF = 'simidebis_backend.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'symberis_backend.wsgi.application'
+WSGI_APPLICATION = 'simidebis_backend.wsgi.application'
 
 
 # Database

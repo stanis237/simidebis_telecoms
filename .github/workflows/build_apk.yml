@@ -28,8 +28,8 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.35.2'
           channel: 'stable'
+          # Suppression de la version fixe pour éviter les erreurs si elle n'est pas encore sur le serveur
 
       - name: Install dependencies
         run: flutter pub get

@@ -19,7 +19,14 @@ class Antenne(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=6)
     altitude = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     frequence = models.CharField(max_length=100, null=True, blank=True)
-    
+
+    # Paramètres techniques ajoutés
+    azimuth = models.FloatField(null=True, blank=True)
+    tilt = models.FloatField(null=True, blank=True)
+    puissance_tx = models.FloatField(default=20.0)
+    polarisation = models.CharField(max_length=50, default='Verticale')
+    downtilt = models.FloatField(default=0.0)
+
     STATUT_CHOICES = (
         ('ACTIF', 'Actif'),
         ('EN_ATTENTE', 'En attente'),
