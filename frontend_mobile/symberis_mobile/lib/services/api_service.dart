@@ -4,9 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ApiService {
-  static const String baseUrl = kIsWeb
-      ? 'http://127.0.0.1:8000/api/'
-      : 'http://10.0.2.2:8000/api/';
+  static const String baseUrl = 'https://36a5-129-0-60-54.ngrok-free.app/api/';
   final _storage = const FlutterSecureStorage();
 
   // ─── Token helpers ────────────────────────────────────────────────────────
