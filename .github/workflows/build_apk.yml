@@ -22,25 +22,29 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '17'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          # Suppression de la version fixe pour éviter les erreurs si elle n'est pas encore sur le serveur
+          cache: true
 
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
         working-directory: frontend_mobile/symberis_mobile
 
       - name: Build APK
-        run: flutter build apk --release
+        run: |
+          # --no-tree-shake-icons évite les plantages fréquents en CI avec les polices d'icônes
+          flutter build apk --release --no-tree-shake-icons
         working-directory: frontend_mobile/symberis_mobile
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: simidebis-release-apk
-          path: frontend_mobile/symberis_mobile/build/app/outputs/flutter-apk/app-release.apk
+          path: frontend_mobile/symberis_mobile/build/app/outputs/flutter-apk/*.apk
+          retention-days: 14

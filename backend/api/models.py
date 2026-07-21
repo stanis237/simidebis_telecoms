@@ -27,6 +27,10 @@ class Antenne(models.Model):
     polarisation = models.CharField(max_length=50, default='Verticale')
     downtilt = models.FloatField(default=0.0)
 
+    # Nouveaux paramètres demandés
+    diametre = models.FloatField(null=True, blank=True, help_text="Diamètre de l'antenne en mètres")
+    type_configuration = models.CharField(max_length=50, default='1+0', help_text="Ex: 1+0, 1+1, 2+0")
+
     STATUT_CHOICES = (
         ('ACTIF', 'Actif'),
         ('EN_ATTENTE', 'En attente'),
